@@ -13,14 +13,31 @@ try {
     $order = NULL;
   }
 
-  // パラメータの値によってSQL文を変更する
-  if ($order === 'desc') {
-    $sql_select = 'SELECT * FROM vocaburaries ORDER BY add_date DESC';
+  // keywordパラメータの値が存在すれば(単語を検索したとき)、その値を変数$keywordに代入する
+  if (isset($_GET['keyword'])) {
+    $keyword = $_GET['keyword'];
   } else {
-    $sql_select = 'SELECT * FROM vocaburaries ORDER BY add_date ASC';
+    $keyword = NULL;
   }
 
-  $stmt_select = $pdo->query($sql_select);
+  // パラメータの値によってSQL文を変更する
+  if ($order === 'desc') {
+    $sql_select = 'SELECT * FROM vocaburaries WHERE vocaburary LIKE :keyword ORDER BY add_date DESC';
+  } else {
+    $sql_select = 'SELECT * FROM vocaburaries WHERE vocaburary LIKE :keyword ORDER BY add_date ASC';
+  }
+
+  // SQL文を用意する
+  $stmt_select = $pdo->prepare($sql_select);
+
+  // SQLのLIKE句で使うため、変数$keyword(検索ワード)の前後を%で囲む(部分一致)
+  $partial_match = "%{$keyword}%";
+
+  // bindValue()メソッドを使って実際の値をプレースホルダにバインドする(割り当てる)
+  $stmt_select->bindValue(':keyword', $partial_match, PDO::PARAM_STR);
+
+  // SQL文を実行する
+  $stmt_select->execute();
 
   $vocaburaries = $stmt_select->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -32,7 +49,6 @@ try {
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>単語一覧</title>
   <link rel="stylesheet" href="css/style.css">
@@ -49,12 +65,16 @@ try {
       <h1>単語一覧</h1>
       <div class="vocaburaries-ui">
         <div>
-          <a href="read.php?order=desc">
+          <a href="read.php?order=desc&keyword=<?= $keyword ?>">
             <img src="images/desc.png" alt="降順に並び替え" class="sort-img">
           </a>
-          <a href="read.php?order=asc">
+          <a href="read.php?order=asc&keyword=<?= $keyword ?>">
             <img src="images/asc.png" alt="昇順に並び替え" class="sort-img">
           </a>
+          <form action="read.php" method="get" class="search-form">
+            <input type="hidden" name="order" value="<?= $order ?>">
+            <input type="text" class="search-box" placeholder="商品名で検索" name="keyword" value="<?= $keyword ?>">
+          </form>
         </div>
         <a href="#" class="btn">単語登録</a>
       </div>
