@@ -96,6 +96,27 @@ footer {
   margin-bottom: 1.5rem;
 }
 
+.vocaburaries-ui div {
+  display: flex;
+  align-items: flex-end;
+}
+
+@media (max-width: 959px) {
+  .vocaburaries-ui {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vocaburaries-ui div {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.sort-img {
+  height: 1.75rem;
+  vertical-align: top;
+}
+
 .vocaburaries-table {
   width: 100%;
   margin: 0 auto;
@@ -113,6 +134,7 @@ footer {
 
 .vocaburaries-table th,
 .vocaburaries-table td {
+  width: 25%;
   padding: 1rem 0.75rem 1rem 0;
   text-align: center;
 }
