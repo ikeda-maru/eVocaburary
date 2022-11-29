@@ -50,7 +50,7 @@ try {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>単語一覧</title>
+  <title>eVocaburary</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -76,7 +76,7 @@ try {
             <input type="text" class="search-box" placeholder="商品名で検索" name="keyword" value="<?= $keyword ?>">
           </form>
         </div>
-        <a href="#" class="btn">単語登録</a>
+        <a href="create.php" class="btn">単語登録</a>
       </div>
       <table class="vocaburaries-table">
         <tr>
@@ -91,7 +91,7 @@ try {
             <tr>
               <td>{$vocaburary['add_date']}</td>
               <td>{$vocaburary['vocaburary']}</td>
-              <td>{$vocaburary['type']}</td>
+              <td>{$vocaburary['PoS']}</td>
               <td>{$vocaburary['meaning']}</td>
             </tr>
           ";
