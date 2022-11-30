@@ -90,6 +90,7 @@ try {
           <th>語彙</th>
           <th>品詞</th>
           <th>意味</th>
+          <th>編集</th>
         </tr>
         <?php
         foreach ($vocaburaries as $vocaburary) {
@@ -99,6 +100,7 @@ try {
               <td>{$vocaburary['vocaburary']}</td>
               <td>{$vocaburary['PoS']}</td>
               <td>{$vocaburary['meaning']}</td>
+              <td><a href='update.php?id={$vocaburary['id']}'><img src='images/edit.png' alt='編集' class='edit-icon'></a></td>
             </tr>
           ";
           echo $table_row;

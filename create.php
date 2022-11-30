@@ -82,18 +82,13 @@ try {
           <input type="text" name="vocaburary" maxlength="50" required>
 
           <label for="PoS">品詞</label>
-          <input type="text" name="PoS" maxlength="50" required>
-          <!-- <select name="PoS" required> -->
-
-            <!-- <option disabled selected value>選択してください</option> -->
-            
-            
-            <?php
-            // 配列の中身を順番に取り出し、セレクトボックスの選択肢として出力する
-            // foreach($PoSs as $PoS) {
-              // echo "<option value='{$PoS}'>{$PoS}</option>";
-            // }
-            // ?>
+          <select name="PoS" required>
+            <option disabled selected value>選択してください</option>
+            <option value="名詞">名詞</option>
+            <option value="形容詞">形容詞</option>
+            <option value="助動詞">助動詞</option>
+            <option value="動詞">動詞</option>
+            <option value="副詞">副詞</option>
           </select>
 
           <label for="meaning">意味</label>
