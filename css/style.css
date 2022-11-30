@@ -7,7 +7,7 @@ body {
 
 header {
   height: 3.5rem;
-  background-color: #ea0000;
+  background-color: lightgreen;
 }
 
 nav {
@@ -23,7 +23,7 @@ button {
 
 nav a {
   margin-left: 0.75rem;
-  color: #fff;
+  color: #000;
   text-decoration: none;
 }
 
@@ -162,6 +162,10 @@ footer {
 .vocaburaries-table td:first-child {
   padding: 1rem 0.75rem;
   text-align: center;
+}
+
+.success {
+  color: #28a745;
 }
 
 /* create.php */

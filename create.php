@@ -3,6 +3,39 @@ $dsn      = 'mysql:dbname=eVocaburary;host=localhost;charset=utf8mb4';
 $user     = 'root';
 $password = 'root';
 
+// submitパラメータの値が存在するとき(「登録」ボタンを押したとき)の処理
+if(isset($_POST['submit'])) {
+  try {
+    $pdo = new PDO($dsn, $user, $password);
+
+    // 動的に変わる値をプレースホルダに置き換えたINSERT文をあらかじめ用意する
+    $sql_insert = '
+      INSERT INTO vocaburaries (add_date, vocaburary, PoS, meaning)
+      VALUES (:add_date, :vocaburary, :PoS, :meaning)
+    ';
+    $stmt_insert = $pdo->prepare($sql_insert);
+
+    // bindValue()メソッドを使って実際の値をプレースホルダにバインドする(割り当てる)
+    $stmt_insert->bindValue(':add_date', $_POST['add_date'], PDO::PARAM_STR);
+    $stmt_insert->bindValue(':vocaburary', $_POST['vocaburary'], PDO::PARAM_STR);
+    $stmt_insert->bindValue(':PoS', $_POST['PoS'], PDO::PARAM_STR);
+    $stmt_insert->bindValue(':meaning', $_POST['meaning'], PDO::PARAM_STR);
+
+    // SQL文を実行する
+    $stmt_insert->execute();
+
+    // 追加した件数を取得する
+    $count = $stmt_insert->rowCount();
+
+    $message = "商品を{$count}件登録しました。";
+
+    // 商品一覧ページにリダイレクトさせる(同時にmessageパラメータも渡す)
+    header("Location: read.php?message={$message}");
+  } catch (PDOException $e) {
+    exit($e->getMessage());
+  }
+}
+
 // セレクトボックスの選択肢として設定するため、品詞コードの配列を取得する
 try {
   $pdo = new PDO($dsn, $user, $password);
@@ -49,14 +82,18 @@ try {
           <input type="text" name="vocaburary" maxlength="50" required>
 
           <label for="PoS">品詞</label>
-          <select name="PoS" required>
-            <option disabled selected value>選択してください</option>
+          <input type="text" name="PoS" maxlength="50" required>
+          <!-- <select name="PoS" required> -->
+
+            <!-- <option disabled selected value>選択してください</option> -->
+            
+            
             <?php
             // 配列の中身を順番に取り出し、セレクトボックスの選択肢として出力する
-            foreach($PoSs as $PoS) {
-              echo "<option value='{$PoS}'>{$PoS}</option>";
-            }
-            ?>
+            // foreach($PoSs as $PoS) {
+              // echo "<option value='{$PoS}'>{$PoS}</option>";
+            // }
+            // ?>
           </select>
 
           <label for="meaning">意味</label>

@@ -63,6 +63,12 @@ try {
   <main>
     <article class="vocaburaries">
       <h1>単語一覧</h1>
+      <?php
+      // (商品の登録・編集・削除後)messageパワメータの値を受け取っていれば、それを表示する
+      if (isset($_GET['message'])) {
+        echo "<p class='success'>{$_GET['message']}</p>";
+      }
+      ?>
       <div class="vocaburaries-ui">
         <div>
           <a href="read.php?order=desc&keyword=<?= $keyword ?>">
