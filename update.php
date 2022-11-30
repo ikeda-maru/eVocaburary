@@ -3,6 +3,44 @@ $dsn      = 'mysql:dbname=eVocaburary;host=localhost;charset=utf8mb4';
 $user     = 'root';
 $password = 'root';
 
+// submitパラメータの値が存在するとき(「更新」ボタンを押したとき)の処理
+if(isset($_POST['submit'])) {
+  try {
+    $pdo = new PDO($dsn, $user, $password);
+
+    // 動的に変わる値をプレースホルダに置き換えたUPDATE文をあらかじめ用意する
+    $sql_update = '
+      UPDATE vocaburaries
+      SET add_date = :add_date,
+      vocaburary   = :vocaburary,
+      PoS          = :PoS,
+      meaning      = :meaning
+      WHERE id = :id
+    ';
+    $stmt_update = $pdo->prepare($sql_update);
+
+    // bindValue()メソッドを使って実際の値をプレースホルダにバインドする(割り当てる)
+    $stmt_update->bindValue(':add_date', $_POST['add_date'], PDO::PARAM_STR);
+    $stmt_update->bindValue(':vocaburary', $_POST['vocaburary'], PDO::PARAM_STR);
+    $stmt_update->bindValue(':PoS', $_POST['PoS'], PDO::PARAM_STR);
+    $stmt_update->bindValue(':meaning', $_POST['meaning'], PDO::PARAM_STR);
+    $stmt_update->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+
+    // SQL文を実行する
+    $stmt_update->execute();
+
+    // 更新した件数を取得する
+    $count = $stmt_update->rowCount();
+
+    $message = "単語を{$count}件編集しました。";
+
+    // 商品一覧ページにリダイレクトさせる(同時にmessageパラメータも渡す)
+    header("Location: read.php?message={$message}");
+  } catch (PDOException $e) {
+    exit($e->getMessage());
+  }
+}
+
 // idパラメータの値が存在すれば処理を行う
 if(isset($_GET['id'])) {
   try {
