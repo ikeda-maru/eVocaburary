@@ -91,6 +91,7 @@ try {
           <th>品詞</th>
           <th>意味</th>
           <th>編集</th>
+          <th>削除</th>
         </tr>
         <?php
         foreach ($vocaburaries as $vocaburary) {
@@ -101,6 +102,7 @@ try {
               <td>{$vocaburary['PoS']}</td>
               <td>{$vocaburary['meaning']}</td>
               <td><a href='update.php?id={$vocaburary['id']}'><img src='images/edit.png' alt='編集' class='edit-icon'></a></td>
+              <td><a href='delete.php?id={$vocaburary['id']}'><img src='images/delete.png' alt='削除' class='delete-icon'></a></td>
             </tr>
           ";
           echo $table_row;
