@@ -17,6 +17,7 @@
       <h1>eVocaburary</h1>
       <p>デジタル単語帳</p>
       <a href="read.php" class="btn">単語一覧</a>
+      <a href="questioning.php" class="btn">スタート</a>
     </article>
   </main>
   <footer>
