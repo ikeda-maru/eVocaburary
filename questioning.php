@@ -36,11 +36,10 @@ try {
       <h1>問題</h1>
         <?php
           foreach ($vocaburaries as $vocaburary) {
-            $meaning = "
-            <p>{$vocaburary['meaning']}</p>
-            ";
+            $meaning[] = $vocaburary['meaning'];
           }
-          echo $meaning[0];
+          
+          echo ($meaning[array_rand($meaning)]);
         ?>
       <input type="text" name="answer">
       <a href="" class="btn">答え</a>
