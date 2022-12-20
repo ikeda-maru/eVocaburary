@@ -34,15 +34,18 @@ try {
   <main>
     <article class="questioning">
       <h1>問題</h1>
+      <p>
         <?php
           foreach ($vocaburaries as $vocaburary) {
             $meaning[] = $vocaburary['meaning'];
           }
-          
           echo ($meaning[array_rand($meaning)]);
         ?>
-      <input type="text" name="answer">
-      <a href="" class="btn">答え</a>
+      </p>
+      <form action="answer.php" method="post">
+        <input type="text" name="answer">
+        <input type="submit" value="答え" class="btn">
+      </form>
     </article>
   </main>
 </body>
