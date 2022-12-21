@@ -1,3 +1,5 @@
+<?php require_once('data.php') ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -15,7 +17,7 @@
   </header>
   <main>
     <article class="questioning">
-      <h1>問題</h1>
+      <h1><?php echo $question ?></h1>
         <p>
           <?php echo $_POST['answer'] ?>
         </p>
