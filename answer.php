@@ -17,13 +17,11 @@
   </header>
   <main>
     <article class="questioning">
-      <h1><?php echo $question ?></h1>
-        <p>
-          <?php echo $_POST['answer'] ?>
-        </p>
-      <form action="answer.php" method="post">
-        <input type="text" name="answer">
-        <input type="submit" value="答え" class="btn">
+      <h1>問題</h1>
+      <p><?php echo $question ?></p>
+      <p><?php echo $_POST['answer'] ?></p>
+      <form action="questioning.php" method="post">
+        <input type="submit" value="次の問題" class="btn">
       </form>
     </article>
   </main>
